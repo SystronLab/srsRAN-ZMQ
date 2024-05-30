@@ -5,6 +5,9 @@ Guide to setup the srsRAN with FlexRIC and OSCRIC
 ## Create Parent Folder
 
 ```bash
+sudo apt update
+sudo apt upgrade
+
 mkdir srsRAN_parent
 cd srsRAN_parent
 ```
@@ -13,6 +16,25 @@ cd srsRAN_parent
 
 ```bash
 sudo apt-get install git cmake make gcc g++ pkg-config libfftw3-dev libmbedtls-dev libsctp-dev libyaml-cpp-dev libgtest-dev
+```
+
+## Add UHD in the Parent Folder (we won't be connecting an external UHD but we need the libraries)
+
+```bash
+sudo apt-get install autoconf automake build-essential ccache cmake cpufrequtils doxygen ethtool \
+g++ git inetutils-tools libboost-all-dev libncurses5 libncurses5-dev libusb-1.0-0 libusb-1.0-0-dev \
+libusb-dev python3-dev python3-mako python3-numpy python3-requests python3-scipy python3-setuptools \
+python3-ruamel.yaml
+
+git clone https://github.com/EttusResearch/uhd.git
+cd uhd/host
+mkdir build
+cd build
+cmake ../
+make
+make test # This step is optional
+sudo make install
+sudo ldconfig
 ```
 
 ## Add ZMQ in the Parent Folder
@@ -64,25 +86,6 @@ make
 make test
 sudo make install
 srsran_install_configs.sh user
-```
-
-## Add UHD in the Parent Folder
-
-```bash
-sudo apt-get install autoconf automake build-essential ccache cmake cpufrequtils doxygen ethtool \
-g++ git inetutils-tools libboost-all-dev libncurses5 libncurses5-dev libusb-1.0-0 libusb-1.0-0-dev \
-libusb-dev python3-dev python3-mako python3-numpy python3-requests python3-scipy python3-setuptools \
-python3-ruamel.yaml
-
-git clone https://github.com/EttusResearch/uhd.git
-cd uhd/host
-mkdir build
-cd build
-cmake ../
-make
-make test # This step is optional
-sudo make install
-sudo ldconfig
 ```
 
 ## Add Open5GS in the Parent Folder
