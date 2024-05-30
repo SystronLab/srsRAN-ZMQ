@@ -2,12 +2,18 @@
 
 Guide to setup the srsRAN with FlexRIC and OSCRIC
 
-## Create Parent Folder
+## Updating the system
 
 ```bash
 sudo apt update
 sudo apt upgrade
+```
 
+Restart the system so that updated daemons are up and running
+
+## Create Parent Folder
+
+```bash
 mkdir srsRAN_parent
 cd srsRAN_parent
 ```
