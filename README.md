@@ -193,6 +193,11 @@ You will get an IP address for the UE indicating successful connection to gNB.
 
 ![Alt text](https://docs.srsran.com/projects/project/en/latest/_images/gNB_srsUE_zmq_near_rt_RIC.png)
 
+### To begin RIC integration uncomment the parameters related to the E2 agent in gnb_zmq.yaml. Then pick the RIC you want to integrate
+
+- [FlexRIC](#flexric)
+- [OSCRIC](#oscric)
+
 ## FlexRIC
 
 ```bash
@@ -209,8 +214,6 @@ cmake -DKPM_VERSION=KPM_V3 -DXAPP_DB=NONE_XAPP ../
 make
 sudo make install
 ```
-
-### Uncomment the parameters related to the E2 agent in gnb_zmq.yaml
 
 ### Running the Setup
 
@@ -251,3 +254,7 @@ On successful connection of the xApp, the following will be displayed on the Nea
 
 [iApp]: E42 SETUP-REQUEST received
 [iApp]: E42 SETUP-RESPONSE sent
+
+## OSCRIC
+
+Will be added soon
