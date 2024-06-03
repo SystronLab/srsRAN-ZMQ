@@ -46,6 +46,7 @@ make test # This step is optional
 sudo make install
 sudo ldconfig
 ```
+*Note: For cmake [error](https://github.com/EttusResearch/uhd/issues/153), navigate to `uhd/host/CMakeLists.txt` line 434, change "Boost_FOUND;HAVE_PYTHON_PLAT_MIN_VERSION;HAVE_PYTHON_MODULE_MAKO" OFF ON) to "Boost_FOUND;HAVE_PYTHON_PLAT_MIN_VERSION;HAVE_PYTHON_MODULE_MAKO" ON ON) 
 
 ### Add ZMQ in the Parent Folder
 
