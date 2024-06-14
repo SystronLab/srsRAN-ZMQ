@@ -49,7 +49,6 @@ sudo ldconfig
 
 *Note: For cmake [error](https://github.com/EttusResearch/uhd/issues/153), deactivate conda base environment `conda deactivate` to prevent the error.*
 
-```bash
 
 ### Add ZMQ in the Parent Folder
 
