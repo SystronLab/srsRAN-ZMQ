@@ -47,7 +47,9 @@ sudo make install
 sudo ldconfig
 ```
 
-\*Note: For cmake [error](https://github.com/EttusResearch/uhd/issues/153), navigate to `uhd/host/CMakeLists.txt` line 434, change "Boost_FOUND;HAVE_PYTHON_PLAT_MIN_VERSION;HAVE_PYTHON_MODULE_MAKO" OFF ON) to "Boost_FOUND;HAVE_PYTHON_PLAT_MIN_VERSION;HAVE_PYTHON_MODULE_MAKO" ON ON)
+*Note: For cmake [error](https://github.com/EttusResearch/uhd/issues/153), deactivate conda base environment `conda deactivate` to prevent the error.*
+
+```bash
 
 ### Add ZMQ in the Parent Folder
 
@@ -174,6 +176,15 @@ Click on 'Save'.
 sudo systemctl restart open5gs-*
 ```
 
+*Note: Check if service is active `sudo systemctl is-active open5gs-xxxd`. If not, restart the service `sudo systemctl restart open5gs-xxxd`. The service can also be stopped by `sudo systemctl stop open5gs-xxxd`*
+
+#### (Optional: open5gs in docker)
+```bash
+cd srsRAN_parent/srsRAN_Project/docker
+sudo docker-compose up 5gc
+```
+*Note: To be tested.*
+
 #### Running the gNB
 
 ```bash
@@ -215,6 +226,25 @@ cd build
 cmake -DKPM_VERSION=KPM_V3 -DXAPP_DB=NONE_XAPP ../
 make
 sudo make install
+```
+
+*Note:  The used FlexRIC version can be built only with gcc-10, switch gcc version using update-alternatives if needed.*
+```sh
+# install gcc-10, g++-10, gcc-11, g++-11
+sudo apt update
+sudo apt install gcc-10 g++-10 gcc-11 g++-11
+# configure update-alternatives 
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 10
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-10 20
+sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-11 10
+sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-10 20
+# select gcc-10 as default
+sudo update-alternatives --config gcc
+sudo update-alternatives --auto gcc
+sudo update-alternatives --auto g++
+# verify the version
+gcc --version
+g++ --version
 ```
 
 ### Running the Setup
