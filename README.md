@@ -47,8 +47,7 @@ sudo make install
 sudo ldconfig
 ```
 
-*Note: For cmake [error](https://github.com/EttusResearch/uhd/issues/153), deactivate conda base environment `conda deactivate` to prevent the error.*
-
+_Note: For cmake [error](https://github.com/EttusResearch/uhd/issues/153), deactivate conda base environment `conda deactivate` to prevent the error._
 
 ### Add ZMQ in the Parent Folder
 
@@ -175,14 +174,16 @@ Click on 'Save'.
 sudo systemctl restart open5gs-*
 ```
 
-*Note: Check if service is active `sudo systemctl is-active open5gs-xxxd`. If not, restart the service `sudo systemctl restart open5gs-xxxd`. The service can also be stopped by `sudo systemctl stop open5gs-xxxd`*
+_Note: Check if service is active `sudo systemctl is-active open5gs-xxxd`. If not, restart the service `sudo systemctl restart open5gs-xxxd`. The service can also be stopped by `sudo systemctl stop open5gs-xxxd`_
 
 #### (Optional: open5gs in docker)
+
 ```bash
 cd srsRAN_parent/srsRAN_Project/docker
 sudo docker-compose up 5gc
 ```
-*Note: To be tested.*
+
+_Note: To be tested._
 
 #### Running the gNB
 
@@ -200,6 +201,16 @@ sudo ./srsue ue_zmq.conf
 ```
 
 You will get an IP address for the UE indicating successful connection to gNB.
+
+To test downlink, ping the IP address directly.
+
+To test uplink, enter the network namespace of the UE with
+
+```bash
+ sudo ip netns exec ue1 bash
+```
+
+and ping the gNB's IP address. The uplink and downlink metrics should be visible in the trace of gNB.
 
 # Adding NearRT-RIC and xApp to the base srsRAN architecture
 
@@ -227,12 +238,13 @@ make
 sudo make install
 ```
 
-*Note:  The used FlexRIC version can be built only with gcc-10, switch gcc version using update-alternatives if needed.*
+_Note: The used FlexRIC version can be built only with gcc-10, switch gcc version using update-alternatives if needed._
+
 ```sh
 # install gcc-10, g++-10, gcc-11, g++-11
 sudo apt update
 sudo apt install gcc-10 g++-10 gcc-11 g++-11
-# configure update-alternatives 
+# configure update-alternatives
 sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 10
 sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-10 20
 sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-11 10
@@ -248,7 +260,8 @@ g++ --version
 
 ## OSCRIC
 
-A minimal version of the [OSC RIC](https://github.com/srsran/oran-sc-ric/tree/main) is provided by srsRAN. 
+A minimal version of the [OSC RIC](https://github.com/srsran/oran-sc-ric/tree/main) is provided by srsRAN.
+
 ```bash
 # Installation
 git clone https://github.com/srsran/oran-sc-ric
@@ -257,7 +270,6 @@ cd ./oran-sc-ric
 # Deployment
 docker compose up
 ```
-
 
 ### Running the Setup
 
@@ -303,6 +315,7 @@ sudo ./srsue ue_zmq.conf
 # Option: FlexRIC
 ./flexric/build/examples/xApp/c/helloworld/xapp_hw
 ```
+
 On successful connection of the xApp, the following will be displayed on the NearRT-RIC console:
 
 [iApp]: E42 SETUP-REQUEST received
@@ -313,7 +326,9 @@ On successful connection of the xApp, the following will be displayed on the Nea
 cd ./oran-sc-ric
 docker compose exec python_xapp_runner ./kpm_mon_xapp.py --metrics=DRB.UEThpDl,DRB.UEThpUl --kpm_report_style=5
 ```
- The xApp console output should be similar to:
+
+The xApp console output should be similar to:
+
 ```bash
 RIC Indication Received from gnb_001_001_00019b for Subscription ID: 5, KPM Report Style: 5
 E2SM_KPM RIC Indication Content:
@@ -324,4 +339,3 @@ E2SM_KPM RIC Indication Content:
 ---Metric: DRB.UEThpDl, Value: [7]
 ---Metric: DRB.UEThpUl, Value: [7]
 ```
-
