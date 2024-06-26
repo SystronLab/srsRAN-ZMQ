@@ -47,7 +47,8 @@ sudo make install
 sudo ldconfig
 ```
 
-\*Note: For cmake [error](https://github.com/EttusResearch/uhd/issues/153), navigate to `uhd/host/CMakeLists.txt` line 434, change "Boost_FOUND;HAVE_PYTHON_PLAT_MIN_VERSION;HAVE_PYTHON_MODULE_MAKO" OFF ON) to "Boost_FOUND;HAVE_PYTHON_PLAT_MIN_VERSION;HAVE_PYTHON_MODULE_MAKO" ON ON)
+*Note: For cmake [error](https://github.com/EttusResearch/uhd/issues/153), deactivate conda base environment `conda deactivate` to prevent the error.*
+
 
 ### Add ZMQ in the Parent Folder
 
@@ -174,6 +175,15 @@ Click on 'Save'.
 sudo systemctl restart open5gs-*
 ```
 
+*Note: Check if service is active `sudo systemctl is-active open5gs-xxxd`. If not, restart the service `sudo systemctl restart open5gs-xxxd`. The service can also be stopped by `sudo systemctl stop open5gs-xxxd`*
+
+#### (Optional: open5gs in docker)
+```bash
+cd srsRAN_parent/srsRAN_Project/docker
+sudo docker-compose up 5gc
+```
+*Note: To be tested.*
+
 #### Running the gNB
 
 ```bash
@@ -217,6 +227,38 @@ make
 sudo make install
 ```
 
+*Note:  The used FlexRIC version can be built only with gcc-10, switch gcc version using update-alternatives if needed.*
+```sh
+# install gcc-10, g++-10, gcc-11, g++-11
+sudo apt update
+sudo apt install gcc-10 g++-10 gcc-11 g++-11
+# configure update-alternatives 
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 10
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-10 20
+sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-11 10
+sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-10 20
+# select gcc-10 as default
+sudo update-alternatives --config gcc
+sudo update-alternatives --auto gcc
+sudo update-alternatives --auto g++
+# verify the version
+gcc --version
+g++ --version
+```
+
+## OSCRIC
+
+A minimal version of the [OSC RIC](https://github.com/srsran/oran-sc-ric/tree/main) is provided by srsRAN. 
+```bash
+# Installation
+git clone https://github.com/srsran/oran-sc-ric
+cd ./oran-sc-ric
+
+# Deployment
+docker compose up
+```
+
+
 ### Running the Setup
 
 #### Restarting the Core
@@ -228,7 +270,12 @@ sudo systemctl restart open5gs-*
 #### Running the NearRT-RIC
 
 ```bash
+# Option: FlexRIC
 ./flexric/build/examples/ric/nearRT-RIC
+
+# Option: OSCRIC
+cd ./oran-sc-ric
+docker compose up
 ```
 
 #### Running the gNB
@@ -236,7 +283,11 @@ sudo systemctl restart open5gs-*
 ```bash
 cd srsRAN_Project/build/apps/gnb
 sudo ip netns add ue1
+# Option: FlexRIC
 sudo ./gnb -c ./gnb_zmq.yaml e2 --addr="127.0.0.1" --bind_addr="127.0.0.1"
+
+# Option: OSCRIC
+sudo ./gnb -c ./gnb_zmq.yaml e2 --addr="10.0.2.10" --bind_addr="10.0.2.1"
 ```
 
 #### Running the UE
@@ -249,14 +300,28 @@ sudo ./srsue ue_zmq.conf
 #### Running the xApp
 
 ```bash
+# Option: FlexRIC
 ./flexric/build/examples/xApp/c/helloworld/xapp_hw
 ```
-
 On successful connection of the xApp, the following will be displayed on the NearRT-RIC console:
 
 [iApp]: E42 SETUP-REQUEST received
 [iApp]: E42 SETUP-RESPONSE sent
 
-## OSCRIC
+```bash
+# Option: OSCRIC
+cd ./oran-sc-ric
+docker compose exec python_xapp_runner ./kpm_mon_xapp.py --metrics=DRB.UEThpDl,DRB.UEThpUl --kpm_report_style=5
+```
+ The xApp console output should be similar to:
+```bash
+RIC Indication Received from gnb_001_001_00019b for Subscription ID: 5, KPM Report Style: 5
+E2SM_KPM RIC Indication Content:
+-ColletStartTime:  2024-04-02 13:24:56
+-Measurements Data:
+--UE_id: 0
+---granulPeriod: 1000
+---Metric: DRB.UEThpDl, Value: [7]
+---Metric: DRB.UEThpUl, Value: [7]
+```
 
-Will be added soon
