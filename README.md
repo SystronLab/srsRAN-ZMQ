@@ -102,7 +102,7 @@ srsran_install_configs.sh user
 
 ### Installation of the 5g core
 
-Pick between [Dockerised 5g core (recommended)](Dockerised5gcore/README.md) and [Simple 5g core](NonDockerised5gcore/README.md)
+Pick between [Dockerised 5g core (recommended)](dockerised_5gcore/README.md) and [Simple 5g core](simple_5gcore/README.md)
 
 Once the UE, gNB and the 5g core are up and running, we can proceed to the next steps:
 

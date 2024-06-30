@@ -1,3 +1,5 @@
+## Setup with dockerised 5g core (recommended)
+
 ### Install docker
 
 ```bash

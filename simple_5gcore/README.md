@@ -1,3 +1,5 @@
+## Setup with simple 5g core
+
 ### Add Open5GS in the Parent Folder
 
 ```bash
