@@ -104,7 +104,7 @@ srsran_install_configs.sh user
 
 Pick between [Dockerised 5g core (recommended)](dockerised_5gcore/README.md) and [Simple 5g core](simple_5gcore/README.md)
 
-Once the UE, gNB and the 5g core are up and running, we can proceed to the next steps:
+Once the 5g core, gNB and ue are connected successfully, we can move ahead and add RIC to this setup
 
 # Adding NearRT-RIC and xApp to the base srsRAN architecture
 
