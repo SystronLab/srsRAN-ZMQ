@@ -100,15 +100,11 @@ sudo make install
 srsran_install_configs.sh user
 ```
 
-## Installation with Dockerised 5g core (recommended)
+### Installation of the 5g core
 
-See the [documentation](Dockerised5gcore/README.md) for more details.
+Pick between [Dockerised 5g core (recommended)](Dockerised5gcore/README.md) and [Simple 5g core](NonDockerised5gcore/README.md)
 
-## Installation with Non Dockerised 5g core
-
-See the [documentation](NonDockerised5gcore/README.md) for more details.
-
-Once the UE, gNB and the core are up and running, we can proceed to the next steps:
+Once the UE, gNB and the 5g core are up and running, we can proceed to the next steps:
 
 # Adding NearRT-RIC and xApp to the base srsRAN architecture
 
