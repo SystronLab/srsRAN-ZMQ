@@ -112,3 +112,95 @@ or UDP
 sudo ip netns exec ue1 iperf3 -c 10.53.1.1 -i 1 -t 60 -u -b 10M
 
 ```
+
+## Multi UE setup
+
+Paste subscriber db file in srsRAN_project/docker/open5gs
+
+In the same folder, edit the open5gs.env file
+
+```bash
+MONGODB_IP=127.0.0.1
+OPEN5GS_IP=10.53.1.2
+UE_IP_BASE=10.45.0
+DEBUG=false
+SUBSCRIBER_DB="subscriber_db.csv"
+#SUBSCRIBER_DB=001010123456780,00112233445566778899aabbccddeeff,opc,63bfa50ee6523365ff14c1f45f88737d,8000,9,10.45.1.2
+```
+
+#### Add the Config Files in the Mentioned Locations
+
+- **Location:** `srsRAN_Project/build/apps/gnb`
+
+  - `gnb_zmq.yaml`
+
+- **Location:** `srsRAN_4G/build/srsue/src`
+  - `ue1_zmq.conf , ue2_zmq.conf, ue3_zmq.conf`
+
+#### Running Open5GS
+
+```bash
+cd srsRAN_Project/docker/
+docker compose up --build 5gc
+```
+
+#### Running the gNB
+
+```bash
+cd srsRAN_Project/build/apps/gnb
+sudo ip netns add ue1
+sudo ip netns add ue2
+sudo ip netns add ue3
+sudo ./gnb -c ./gnb_zmq.yaml
+```
+
+#### Running the UEs in different terminals
+
+```bash
+cd srsRAN_4G/build/srsue/src
+sudo ./srsue ue1_zmq.conf
+sudo ./srsue ue1_zmq.conf
+sudo ./srsue ue1_zmq.conf
+```
+
+while they are waiting to be attached install the GNU-Radio Companion
+
+```bash
+apt install xterm gnuradio
+```
+
+paste the multi_ue_scenario.grc in the parent folder
+
+run it with
+
+```bash
+sudo gnuradio-companion multi_ue_scenario.grc
+```
+
+click on the play button in the companion, the UEs will then attach and get an IP address indicating successful connection
+
+## Multi gNB setup
+
+To connect the 2nd gNB to the same Open5gs running in docker, add a second IP address to the bridge interface connecting to the Open5gs docker container.
+
+1. Get the name of the Open5gs docker bridge:
+
+```bash
+ip -o addr show | grep "10.53.1.1"
+```
+
+2. Add a second IP address to the bridge:
+
+```bash
+sudo ip addr add 10.53.1.3/24 dev BRIDGE_NAME
+```
+
+Create a copy of the gnb_zmq.yaml file and use the IP=10.53.1.3 as amf.bind_addr
+
+Run the second gnb in a new terminal with
+
+```bash
+sudo ./gnb -c ./gnb2_zmq.yaml
+```
+
+The successful connection of the second gNB will be shown in the console of the 5g core.
