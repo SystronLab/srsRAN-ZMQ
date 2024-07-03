@@ -159,8 +159,8 @@ sudo ./gnb -c ./gnb_zmq.yaml
 ```bash
 cd srsRAN_4G/build/srsue/src
 sudo ./srsue ue1_zmq.conf
-sudo ./srsue ue1_zmq.conf
-sudo ./srsue ue1_zmq.conf
+sudo ./srsue ue2_zmq.conf
+sudo ./srsue ue3_zmq.conf
 ```
 
 while they are waiting to be attached install the GNU-Radio Companion
@@ -195,7 +195,7 @@ ip -o addr show | grep "10.53.1.1"
 sudo ip addr add 10.53.1.3/24 dev BRIDGE_NAME
 ```
 
-Create a copy of the gnb_zmq.yaml file and use the IP=10.53.1.3 as amf.bind_addr
+Add the second gnb config file in the same location as the previous one
 
 Run the second gnb in a new terminal with
 
