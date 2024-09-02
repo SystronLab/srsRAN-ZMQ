@@ -45,7 +45,7 @@ pcap:
   ngap_enable: false # Set to true to enable NGAP PCAPs.
   ngap_filename: /tmp/gnb_ngap.pcap # Path where the NGAP PCAP is stored.
 
-#-----Uncomment to connect to FlexRIC------
+#-----Uncomment to connect to RIC------
 #   e2ap_enable: true                 # Set to true to enable E2AP PCAPs.
 #   e2ap_filename: /tmp/gnb_e2ap.pcap # Path where the E2AP PCAP is stored.
 # e2:
@@ -58,4 +58,4 @@ pcap:
 #   rlc_json_enable: 1                # Enable RLC metrics reporting (need to deliver measurements to E2SM_KPM service model)
 #   rlc_report_period: 1000           # Set reporting period to 1s
 
-#------------------------------------------
+#-------------------end of RIC -------------
