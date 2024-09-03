@@ -167,19 +167,20 @@ docker compose up
 
 ### Running the Setup
 
-#### Restarting the Core
+#### Run the Core
 
 ```bash
-sudo systemctl restart open5gs-*
+cd srsRAN_Project/docker/
+docker compose up --build 5gc
 ```
 
 #### Running the NearRT-RIC
 
 ```bash
-# Option: FlexRIC
+# Option 1: FlexRIC
 ./flexric/build/examples/ric/nearRT-RIC
 
-# Option: OSCRIC
+# Option 2: OSCRIC
 cd ./oran-sc-ric
 docker compose up
 ```
