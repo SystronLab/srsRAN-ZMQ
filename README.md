@@ -1,4 +1,4 @@
-# srsRAN setup guide
+# srsRAN Setup Guide
 
 Guide to setup the srsRAN with FlexRIC and OSCRIC on Ubuntu 22.04
 
@@ -95,12 +95,12 @@ mkdir build
 cd build
 cmake ../
 make
-make test
+make test # This step is optional
 sudo make install
 srsran_install_configs.sh user
 ```
 
-### Installation of the 5g core
+### Installation of the 5g Core
 
 Pick between [Dockerised 5g core (recommended)](dockerised_5gcore/README.md) and [Simple 5g core](simple_5gcore/README.md)
 
@@ -154,24 +154,27 @@ g++ --version
 
 ## OSCRIC
 
-A minimal version of the [OSC RIC](https://github.com/srsran/oran-sc-ric/tree/main) is provided by srsRAN.
+A minimal version of the [OSC RIC](https://github.com/srsran/oran-sc-ric/tree/main) is provided by srsRAN. Add it in the parent folder.
 
 ```bash
 # Installation
 git clone https://github.com/srsran/oran-sc-ric
 cd ./oran-sc-ric
 
-# Deployment
-docker compose up
+# IF you wish to deploy it
+sudo docker compose up
 ```
+<br>
 
-### Running the Setup
+# Running the Whole srsRAN Setup
 
-#### Run the Core
+Start up each of the following components in a different terminal window.
+
+#### Run the 5G Core
 
 ```bash
-cd srsRAN_Project/docker/
-docker compose up --build 5gc
+cd srsRAN_parent/srsRAN_Project/docker/
+sudo docker compose up --build 5gc
 ```
 
 #### Running the NearRT-RIC
@@ -181,27 +184,31 @@ docker compose up --build 5gc
 ./flexric/build/examples/ric/nearRT-RIC
 
 # Option 2: OSCRIC
-cd ./oran-sc-ric
-docker compose up
+cd srsRAN_parent/oran-sc-ric
+sudo docker compose up
 ```
 
 #### Running the gNB
 
 ```bash
-cd srsRAN_Project/build/apps/gnb
+cd srsRAN_parent/srsRAN_Project/build/apps/gnb
 sudo ip netns add ue1
 # Option: FlexRIC
 sudo ./gnb -c ./gnb_zmq.yaml e2 --addr="127.0.0.1" --bind_addr="127.0.0.1"
 
-# Option: OSCRIC
-sudo ./gnb -c ./gnb_zmq.yaml e2 --addr="10.0.2.10" --bind_addr="10.0.2.1"
+# Option: OSCRIC AND running with one gNB
+sudo ./gnb -c ./single_gnb_zmq.yaml e2 --addr="10.0.2.10" --bind_addr="10.0.2.1"
+
+# Option: OSCRIC AND multiple gNB
 ```
 
 #### Running the UE
 
 ```bash
-cd srsRAN_4G/build/srsue/src
-sudo ./srsue ue_zmq.conf
+cd srsRAN_parent/srsRAN_4G/build/srsue/src
+
+# Option: running the setup with one UE
+sudo ./srsue single_ue_zmq.conf
 ```
 
 #### Running the xApp
@@ -218,8 +225,8 @@ On successful connection of the xApp, the following will be displayed on the Nea
 
 ```bash
 # Option: OSCRIC
-cd ./oran-sc-ric
-docker compose exec python_xapp_runner ./kpm_mon_xapp.py --metrics=DRB.UEThpDl,DRB.UEThpUl --kpm_report_style=5
+cd srsRAN_parent/oran-sc-ric
+sudo docker compose exec python_xapp_runner ./kpm_mon_xapp.py --metrics=DRB.UEThpDl,DRB.UEThpUl --kpm_report_style=5
 ```
 
 The xApp console output should be similar to:

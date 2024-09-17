@@ -26,7 +26,7 @@ sudo docker run hello-world
 
 ```
 
-### Running the setup with one gNB and one UE
+## Setup with one gNB and one UE
 
 #### Add the Config Files in the Mentioned Locations
 
@@ -37,11 +37,15 @@ sudo docker run hello-world
 - **Location:** `srsRAN_4G/build/srsue/src`
   - `single_ue_zmq.conf`
 
+### Running the setup with one gNB and one UE
+
+This is optional. Can go back to the original setup page to follow next steps to run the whole setup, including NearRT-RIC and xApp.
+
 #### Running Open5GS
 
 ```bash
 cd srsRAN_Project/docker/
-docker compose up --build 5gc
+sudo docker compose up --build 5gc
 ```
 
 #### Running the gNB
