@@ -1,8 +1,8 @@
-# srsRAN Setup Guide
+# srsRAN with ZMQ
 
-Guide to setup the srsRAN with FlexRIC and OSCRIC on Ubuntu 22.04
+Step-by-step instructions for setting up the project with various configurations (Dockerized 5G core, Non Dockerized 5G core, Single UE, Multiple UEs, Single gNB, Multiple gNBs, FlexRIC, OSC RIC) on Ubuntu 22.04
 
-## Overview of the base srsRAN architecture
+## Overview of the architecture
 
 ![Alt text](https://docs.srsran.com/projects/project/en/latest/_images/gNB_srsUE_zmq.png)
 
