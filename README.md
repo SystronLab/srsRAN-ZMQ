@@ -50,6 +50,8 @@ sudo make install
 sudo ldconfig
 ```
 
+For cmake Boost error `sudo apt install build-essential libboost-system-dev libboost-thread-dev libboost-program-options-dev libboost-test-dev python3-mako`
+
 _Note: For cmake [error](https://github.com/EttusResearch/uhd/issues/153), deactivate conda base environment `conda deactivate` to prevent the error._
 
 ### Add ZMQ in the Parent Folder
