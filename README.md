@@ -2,8 +2,9 @@
 
 Step-by-step instructions for setting up the project with various configurations (Dockerized 5G core, Non Dockerized 5G core, Single UE, Multiple UEs, Single gNB, Multiple gNBs, FlexRIC, OSC RIC) on Ubuntu 22.04
 
-**Heads Up!!!**
-The configuration files included in this project are deprecated due to updates in srsRAN. You can still follow the steps outlined here, but make sure to use the latest configuration files from the official srsRAN website.
+> ⚠️ **Heads Up!!!**  
+> The configuration files included in this project are deprecated due to updates in srsRAN.  
+> You can follow the steps outlined here, but make sure to download and use the latest config files from the [official srsRAN website](https://docs.srsran.com/projects/project/en/latest/user_manuals/source/installation.html).
 
 ## Overview of the architecture
 
