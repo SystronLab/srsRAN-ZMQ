@@ -32,10 +32,10 @@ sudo docker run hello-world
 
 - **Location:** `srsRAN_Project/build/apps/gnb`
 
-  - `single_gnb_zmq.yaml`
+  - `gnb_zmq.yaml`
 
 - **Location:** `srsRAN_4G/build/srsue/src`
-  - `single_ue_zmq.conf`
+  - `ue_zmq.conf`
 
 ### Running the setup with one gNB and one UE
 
@@ -53,14 +53,14 @@ sudo docker compose up --build 5gc
 ```bash
 cd srsRAN_Project/build/apps/gnb
 sudo ip netns add ue1
-sudo ./gnb -c ./single_gnb_zmq.yaml
+sudo ./gnb -c ./gnb_zmq.yaml
 ```
 
 #### Running the UE
 
 ```bash
 cd srsRAN_4G/build/srsue/src
-sudo ./srsue single_ue_zmq.conf
+sudo ./srsue ue_zmq.conf
 ```
 
 You will get an IP address for the UE indicating successful connection to gNB.
