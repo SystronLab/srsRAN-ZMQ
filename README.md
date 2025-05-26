@@ -2,9 +2,9 @@
 
 Step-by-step instructions for setting up the project with various configurations (Dockerized 5G core, Non Dockerized 5G core, Single UE, Multiple UEs, Single gNB, Multiple gNBs, FlexRIC, OSC RIC) on Ubuntu 22.04
 
-> ⚠️ **Heads Up!!!**  
-> The configuration files included in this project are deprecated due to updates in srsRAN.  
-> You can follow the steps outlined here, but make sure to download and use the latest config files from the [official srsRAN website](https://docs.srsran.com/projects/project/en/latest/user_manuals/source/installation.html).
+> ⚠️ **HEADS UP!!!**  
+> The config files in this repo are deprecated due to recent srsRAN updates but are kept here in case you need to refer to any values.
+> You can follow the steps outlined here to install the project, but make sure to download and use the latest config files from the [official srsRAN website](https://docs.srsran.com/projects/project/en/latest/user_manuals/source/installation.html) when you are running the project.
 
 ## Overview of the architecture
 
@@ -248,35 +248,3 @@ E2SM_KPM RIC Indication Content:
 ---Metric: DRB.UEThpDl, Value: [7]
 ---Metric: DRB.UEThpUl, Value: [7]
 ```
-
-## Grafana UI
-
-Add the following in the gnb_zmq.yaml config file
-
-```bash
-metrics:
-enable_json_metrics: true # Enable reporting metrics in JSON format
-addr: 172.19.1.4 # Metrics-server IP
-port: 55555 # Metrics-server Port
-```
-
-To launch the docker image for the Grafana UI,
-
-```bash
-cd srsRAN_Project
-sudo docker compose -f docker/docker-compose.yml up grafana
-```
-
-The following output should be observed:
-
-```bash
-Creating network "docker_ran" with the default driver
-Starting metrics_server ...
-Starting metrics_server ... done
-Creating grafana        ... done
-Attaching to grafana
-```
-
-Navigating to http://localhost:3300/ in your preferred web browser will allow you to view the UI.
-
-You can then run srsRAN as normal. As the UE(s) connect to the network you will begin to see an output for each. These figures and graphics will update automatically during runtime, showing plots for each UE on the network.
