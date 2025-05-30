@@ -1,6 +1,6 @@
 # srsRAN with ZMQ
 
-Step-by-step instructions for setting up the project with various configurations (Dockerized 5G core, Non Dockerized 5G core, Single UE, Multiple UEs, Single gNB, Multiple gNBs, FlexRIC, OSC RIC) on Ubuntu 22.04
+Guide to setup the project with various configurations (Dockerized 5G core, Non Dockerized 5G core, Single UE, Multiple UEs, Single gNB, Multiple gNBs, FlexRIC, OSC RIC) on Ubuntu 22.04
 
 > ⚠️ **HEADS UP!!!**  
 > The config files in this repo are deprecated due to recent srsRAN updates but are kept here in case you need to refer to any values.
