@@ -125,10 +125,6 @@ A minimal version of the [OSC RIC](https://github.com/srsran/oran-sc-ric/tree/ma
 ```bash
 # Installation
 git clone https://github.com/srsran/oran-sc-ric
-cd ./oran-sc-ric
-
-# IF you wish to deploy it
-sudo docker compose up
 ```
 
 <br>
