@@ -1,4 +1,4 @@
-# srsRAN with OCUDU
+# OCUDU with ZMQ
 
 Guide to setup the project with various configurations (Dockerized 5G core, Non Dockerized 5G core, Single UE, Multiple UEs, Single gNB, Multiple gNBs, OSC RIC) on Ubuntu 22.04
 
@@ -22,8 +22,8 @@ Restart the system so that updated daemons are up and running
 ### Create Parent Folder
 
 ```bash
-mkdir srsRAN_parent
-cd srsRAN_parent
+mkdir ocudu_parent
+cd ocudu_parent
 ```
 
 ### Install Dependencies
@@ -110,7 +110,7 @@ Pick between [Dockerised 5g core (recommended)](dockerised_5gcore/README.md) and
 
 Once the 5g core, gNB and ue are connected successfully, we can move ahead and add RIC to this setup
 
-# Adding NearRT-RIC and xApp to the base srsRAN architecture
+# Adding NearRT-RIC and xApp to the base OCUDU architecture
 
 ![Alt text](https://docs.srsran.com/projects/project/en/latest/_images/gNB_srsUE_zmq_near_rt_RIC.png)
 
@@ -118,7 +118,7 @@ Once the 5g core, gNB and ue are connected successfully, we can move ahead and a
 
 ## OSCRIC
 
-A minimal version of the [OSC RIC](https://github.com/srsran/oran-sc-ric/tree/main) is provided by srsRAN. Add it in the parent folder.
+A minimal version of the [OSC RIC](https://github.com/srsran/oran-sc-ric/tree/main) . Add it in the parent folder.
 
 ```bash
 # Installation
@@ -127,7 +127,7 @@ git clone https://github.com/srsran/oran-sc-ric
 
 <br>
 
-# Running the Whole srsRAN Setup
+# Running the Whole Setup
 
 Start up each of the following components in a different terminal window.
 
