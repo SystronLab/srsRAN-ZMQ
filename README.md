@@ -1,10 +1,10 @@
-# srsRAN with ZMQ
+# srsRAN with OCUDU
 
 Guide to setup the project with various configurations (Dockerized 5G core, Non Dockerized 5G core, Single UE, Multiple UEs, Single gNB, Multiple gNBs, OSC RIC) on Ubuntu 22.04
 
 > ⚠️ **HEADS UP!!!**  
-> The config files in this repo are deprecated due to recent srsRAN updates but are kept here in case you need to refer to any values.
-> You can follow the steps outlined here to install the project, but make sure to download and use the latest config files from the [official srsRAN website](https://docs.srsran.com/projects/project/en/latest/user_manuals/source/installation.html) when you are running the project.
+> The config files in this repo are deprecated due to recent OCUDU updates but are kept here in case you need to refer to any values.
+> You can follow the steps outlined here to install the project, but make sure to download and use the latest config files from the OCUDU website when you are running the project.
 
 ## Overview of the architecture
 
@@ -77,17 +77,15 @@ sudo make install
 sudo ldconfig
 ```
 
-### Add 5g in the Parent Folder
+### Add OCUDU in the Parent Folder
 
 ```bash
-git clone https://github.com/srsran/srsRAN_Project.git
-cd srsRAN_Project
+git clone https://gitlab.com/ocudu/ocudu.git
+cd ocudu
 mkdir build
 cd build
 cmake ../ -DENABLE_EXPORT=ON -DENABLE_ZEROMQ=ON
 make -j`nproc`
-sudo make install
-sudo ldconfig
 ```
 
 ### Add 4g in the Parent Folder (we need it for the UE simulator)
@@ -136,21 +134,21 @@ Start up each of the following components in a different terminal window.
 #### Run the 5G Core
 
 ```bash
-cd srsRAN_parent/srsRAN_Project/docker/
+cd ocudu/docker/
 sudo docker compose up --build 5gc
 ```
 
 #### Running the NearRT-RIC
 
 ```bash
-cd srsRAN_parent/oran-sc-ric
+cd oran-sc-ric
 sudo docker compose up
 ```
 
 #### Running the gNB
 
 ```bash
-cd srsRAN_parent/srsRAN_Project/build/apps/gnb
+cd ocudu/build/apps/gnb
 sudo ip netns add ue1
 
 # OSCRIC
@@ -160,7 +158,7 @@ sudo ./gnb -c ./single_gnb_zmq.yaml e2 --addr="10.0.2.10" --bind_addr="10.0.2.1"
 #### Running the UE
 
 ```bash
-cd srsRAN_parent/srsRAN_4G/build/srsue/src
+cd srsRAN_4G/build/srsue/src
 
 # Option: running the setup with one UE
 sudo ./srsue single_ue_zmq.conf
@@ -170,7 +168,7 @@ sudo ./srsue single_ue_zmq.conf
 
 ```bash
 # OSCRIC
-cd srsRAN_parent/oran-sc-ric
+cd oran-sc-ric
 sudo docker compose exec python_xapp_runner ./kpm_mon_xapp.py --metrics=DRB.UEThpDl,DRB.UEThpUl --kpm_report_style=5
 ```
 
