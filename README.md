@@ -97,8 +97,8 @@ git clone https://github.com/srsRAN/srsRAN_4G.git
 cd srsRAN_4G
 mkdir build
 cd build
-cmake ../
-make
+cmake .. -DENABLE_UHD=OFF
+make -j"$(nproc)"
 make test # This step is optional
 sudo make install
 srsran_install_configs.sh user
