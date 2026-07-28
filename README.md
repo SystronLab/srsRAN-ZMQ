@@ -151,8 +151,7 @@ sudo docker compose up
 cd ocudu/build/apps/gnb
 sudo ip netns add ue1
 
-# OSCRIC
-sudo ./gnb -c ./single_gnb_zmq.yaml e2 --addr="10.0.2.10" --bind_addr="10.0.2.1"
+sudo ./gnb -c ./gnb_zmq.yaml
 ```
 
 #### Running the UE
@@ -160,8 +159,7 @@ sudo ./gnb -c ./single_gnb_zmq.yaml e2 --addr="10.0.2.10" --bind_addr="10.0.2.1"
 ```bash
 cd srsRAN_4G/build/srsue/src
 
-# Option: running the setup with one UE
-sudo ./srsue single_ue_zmq.conf
+sudo ./srsue ue_zmq.conf
 ```
 
 #### Running the xApp
