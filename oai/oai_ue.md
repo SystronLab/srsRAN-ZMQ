@@ -192,35 +192,6 @@ sudo env LD_LIBRARY_PATH="$PWD" \
 
 ---
 
-## 5. `oaiue_zmq.conf does not exist`
-
-The configuration file is not generated automatically and may be deleted when the build directory is cleaned.
-
-Recreate or restore `oaiue_zmq.conf` before launching the UE.
-
----
-
-# Build Command
-
-```bash
-cd ~/OAI/ocudu_parent/openairinterface5g/cmake_targets
-
-./build_oai -c --ninja -w ZMQ --nrUE
-```
-
----
-
-# Launch Command
-
-```bash
-cd ~/OAI/ocudu_parent/openairinterface5g/cmake_targets/ran_build/build
-
-sudo env LD_LIBRARY_PATH="$PWD" \
-./nr-uesoftmodem -O ./oaiue_zmq.conf
-```
-
----
-
 # Notes
 
 - This setup replaces the `srsRAN_4G` ZMQ UE with the **OpenAirInterface NR UE**.
