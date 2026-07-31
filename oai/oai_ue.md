@@ -25,7 +25,8 @@ sudo apt install -y libzmq3-dev
 Install all required dependencies:
 
 ```bash
-cd ~/OAI/ocudu_parent/openairinterface5g/cmake_targets
+git clone https://github.com/duranta-project/openairinterface5g.git
+cd openairinterface5g/cmake_targets
 
 ./build_oai -I
 ```
@@ -43,7 +44,7 @@ Build the ZMQ-enabled NR UE:
 Check that the UE executable exists:
 
 ```bash
-cd ~/OAI/ocudu_parent/openairinterface5g/cmake_targets/ran_build/build
+cd openairinterface5g/cmake_targets/ran_build/build
 
 ls -lh nr-uesoftmodem
 ```
@@ -63,58 +64,6 @@ liboai_zmqdevif.so
 
 ---
 
-# UE Configuration
-
-Create `oaiue_zmq.conf`.
-
-```cfg
-uicc0 = {
-  imsi = "001010123456780";
-  key = "00112233445566778899aabbccddeeff";
-  opc = "63bfa50ee6523365ff14c1f45f88737d";
-
-  pdu_sessions = ({
-    dnn = "internet";
-    nssai_sst = 1;
-  });
-};
-
-device = {
-  name = "oai_zmqdevif";
-};
-
-zmq = (
-  {
-    tx_channels = ("tcp://127.0.0.1:4557");
-    rx_channels = ("tcp://127.0.0.1:4556");
-  }
-);
-
-r = 51;
-numerology = 1;
-band = 78;
-
-C = 3489420000L;
-
-ue-scan-carrier = 1;
-E = 1;
-
-uecap_file =
-  "../../../targets/PROJECTS/GENERIC-NR-5GC/CONF/uecap_ports1.xml";
-```
-
-> **Important**
->
-> The carrier frequency **must** be written as:
->
-> ```cfg
-> C = 3489420000L;
-> ```
->
-> The `L` suffix forces libconfig to treat the value as a 64-bit integer. Without it, the value overflows and the UE aborts during startup.
-
----
-
 # ZMQ Port Mapping
 
 | Component | Address |
@@ -131,7 +80,8 @@ uecap_file =
 ## 1. Start the 5G Core
 
 ```bash
-docker compose up
+cd ocudu/docker/
+sudo docker compose up --build 5gc
 ```
 
 ---
@@ -141,6 +91,7 @@ docker compose up
 Example:
 
 ```bash
+cd ocudu/build/apps/gnb
 sudo ./gnb -c gnb_zmq.yaml
 ```
 
@@ -149,7 +100,7 @@ sudo ./gnb -c gnb_zmq.yaml
 ## 3. Start the OAI NR UE
 
 ```bash
-cd ~/OAI/ocudu_parent/openairinterface5g/cmake_targets/ran_build/build
+cd openairinterface5g/cmake_targets/ran_build/build
 
 sudo env LD_LIBRARY_PATH="$PWD" \
 ./nr-uesoftmodem -O ./oaiue_zmq.conf
